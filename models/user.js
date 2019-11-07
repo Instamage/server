@@ -1,5 +1,7 @@
 const Mongoose = require('mongoose')
 const Schema = Mongoose.Schema;
+const { hashPassword } = require('../helpers/hash');
+
 var validateEmail = function(email) {
   var re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
   return re.test(email)
@@ -37,6 +39,7 @@ const UserSchema = new Schema({
 })
 
 UserSchema.pre('save', function(next) {
+  this.password = hashPassword(this.password);
   this.profile_img = 'https://storage.cloud.google.com/newminiwp/157310485641659162520-blanco-perfil-de-usuario-icono-en-el-boto%CC%81n-negro-aislado-en-blanco.jpg?authuser=1';
   this.Following = [];
   this.Followers = [];
