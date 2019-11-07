@@ -1,5 +1,5 @@
 const User = require('../models/user')
-const { comparePassword } = require('../helpers/hash');
+const { comparePassword, hashPassword } = require('../helpers/hash');
 const { signToken } = require('../helpers/jwt');
 const mongoose = require('mongoose');
 
@@ -75,6 +75,24 @@ module.exports = {
     let image_url = req.file.cloudStoragePublicUrl
     let _id = req.loggedUser.id;
     User.findByIdAndUpdate(_id, {profile_img: image_url}, {new: true})
+      .then((user) => {
+        res.status(200).json({user})
+      })
+      .catch(next)
+  },
+  changePassword (req, res, next) {
+    const id = req.loggedUser.id;
+    const oldPassword = req.body.oldPassword
+    const newPassword = req.body.newPassword
+    User.findById(id)
+      .then(user => {
+        if(user && comparePassword(oldPassword, user.password)) {
+          const hashpass = hashPassword(newPassword)
+          return User.findByIdAndUpdate(id, {password: hashpass}, {new: true})
+        } else {
+          throw { status: 400, msg: 'wrong old password'}
+        }
+      })
       .then((user) => {
         res.status(200).json({user})
       })
