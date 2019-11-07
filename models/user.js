@@ -10,8 +10,7 @@ var validateEmail = function(email) {
 const UserSchema = new Schema({
   username: {
     type: String,
-    required: [true, 'username is required!'],
-    minlength: [5, 'username min 5 char']
+    required: [true, 'username is required!']
   },
   email: {
     type: String,

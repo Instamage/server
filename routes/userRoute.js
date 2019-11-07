@@ -7,6 +7,7 @@ const gcs = require('../middlewares/gcs');
 Route.post('/signup', userCont.signup);
 Route.post('/signin', userCont.signin);
 Route.patch('/send/:id', authentication, userCont.followingStatusFalse);
-Route.patch('/upload', authentication , multer.single('image'), gcs, userCont.updateImage)
+Route.patch('/upload', authentication, multer.single('image'), gcs, userCont.updateImage);
+Route.patch('/change', authentication, userCont.changePassword);
 
 module.exports = Route;
