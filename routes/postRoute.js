@@ -8,6 +8,7 @@ router.get('/', PostController.findAll)
 router.use(authentication)
 router.get('/', PostController.myPost)
 router.post('/', multer.single('image'), gcs, PostController.addPost)
+router.patch('/like/:id', authentication, PostController.likeUnlikePost)
 router.patch('/:id/update', authorization, PostController.editCaption)
 
 module.exports = router

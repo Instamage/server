@@ -42,7 +42,7 @@ class PostController {
       })
       .catch(next)
   }
-  static likeUnlikeArticle (req, res, next) {
+  static likeUnlikePost (req, res, next) {
     const id = req.params.id;
     const loginUser = req.loggedUser.id
     let pass = true
