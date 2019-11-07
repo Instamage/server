@@ -25,6 +25,27 @@ class PostController {
       })
       .catch(next)
   }
+  static likeUnlikeArticle (req, res, next) {
+    const id = req.params.id;
+    const loginUser = req.loggedUser.id
+    let pass = true
+    Post.findById(id)
+      .then(post => {
+        for(let i=0; i<post.Likes.length; i++) {
+          if(post.Likes[i] == req.loggedUser.id) pass = false;
+        }
+        if(!pass) {
+          return post.findByIdAndUpdate(id, {$pull: {Likes: loginUser}});
+        } else {
+          return post.findByIdAndUpdate(id, {$push: {Likes: loginUser}});
+        }
+      })
+      .then(() => {
+        if(!pass) res.status(200).json({msg: 'UnLike'})
+        else res.status(200).json({msg: 'Like'})
+      })
+      .catch(next)
+  }
 }
 
 module.exports = PostController

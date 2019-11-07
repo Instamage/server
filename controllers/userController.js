@@ -1,4 +1,4 @@
-const User = require('../models/user');
+const User = require('../models/user')
 const { comparePassword } = require('../helpers/hash');
 const { signToken } = require('../helpers/jwt');
 const mongoose = require('mongoose');
@@ -8,13 +8,19 @@ module.exports = {
     const { username, password, email } = req.body;
     User.create({ username, password, email })
       .then(user => {
-        res.status(200).json({user})
+        const payload = {
+          id: user._id,
+          username: user.username,
+          email: user.email
+        }
+        const serverToken = signToken(payload);
+        res.status(200).json({username: user.username, token: serverToken})
       })
       .catch(next)
   },
   signin (req, res, next) {
-    const { email, password } = req.body;
-    User.findOne({ email })
+    const { identity, password } = req.body;
+    User.findOne({ $or: [{ username: identity }, { email: identity }] })
       .then(user => {
         if(user && comparePassword(password, user.password)){
           const payload = {
@@ -30,8 +36,7 @@ module.exports = {
       })
       .catch(next)
   },
-  followingStatusFalse (req, res, next) { 
-    console.log(req.params.id)
+  followingStatusFalse (req, res, next) {
     const _id = req.params.id;
     User.findById({ _id })
       .then(user => {
@@ -63,6 +68,15 @@ module.exports = {
         } else {
           res.status(200).json({ msg: 'Unfollowing Success' })
         }
+      })
+      .catch(next)
+  },
+  updateImage (req, res, next) {
+    let image_url = req.file.cloudStoragePublicUrl
+    let _id = req.loggedUser.id;
+    User.findByIdAndUpdate(_id, {profile_img: image_url}, {new: true})
+      .then((user) => {
+        res.status(200).json({user})
       })
       .catch(next)
   }

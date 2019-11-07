@@ -1,11 +1,11 @@
-const { verifyedToken } = require('../helpers/jwt')
+const { decodeToken } = require('../helpers/jwt')
 const Post = require('../models/posting')
 
 function authentication(req, res, next) {
   try {
     let token = req.headers.token
-    let decodeToken = verifyedToken(token)
-    req.loggedUser = decodeToken
+    let decode = decodeToken(token)
+    req.loggedUser = decode
     next()
   } catch (err) {
     next(err)
