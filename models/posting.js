@@ -11,10 +11,12 @@ const PostSchema = new Schema({
   Likes: [{
     type: Schema.Types.ObjectId,
     ref: 'users'
-  }]  
+  }],
+  comments: []
 }, { timestamps: true })
 
 PostSchema.pre('save', function(next){
+  this.comments = [];
   this.Likes = [];
   next()
 })

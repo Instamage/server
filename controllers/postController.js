@@ -63,6 +63,21 @@ class PostController {
       })
       .catch(next)
   }
+
+  static postComment (req, res, next) {
+    const username = req.loggedUser.username;
+    const id = req.params.id;
+    const comment = req.body.comment
+    const payload = {
+      username,
+      comment
+    }
+    Post.findByIdAndUpdate(id, {$push: {comments: payload}}, {new: true})
+      .then(post => {
+        res.status(200).json({post})
+      })
+      .catch(next)
+  }
 }
 
 module.exports = PostController
