@@ -25,7 +25,7 @@ module.exports = {
           const serverToken = signToken(payload);
           res.status(200).json({msg: 'Success Login', token: serverToken})
         } else {
-          throw {msg: 'wrong'}
+          next({ status: 400, msg: {msg:'email/password wrong'}})
         }
       })
       .catch(next)
