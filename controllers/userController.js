@@ -18,11 +18,11 @@ module.exports = {
         const payload = {
           id: user._id,
           username: user.username,
-          email: user.email,
-          image_url: user.image_url
+          email: user.email
         }
         const serverToken = signToken(payload);
-        res.status(200).json({username: user.username, token: serverToken})
+        res.status(200).json({username: user.username, token: serverToken,
+          image_url: user.image_url})
       })
       .catch(next)
   },
@@ -34,11 +34,11 @@ module.exports = {
           const payload = {
             id: user._id,
             username: user.username,
-            email: user.email,
-            image_url: user.image_url
+            email: user.email
           }
           const serverToken = signToken(payload);
-          res.status(200).json({msg: 'Success Login', token: serverToken})
+          res.status(200).json({msg: 'Success Login', token: serverToken,
+          image_url: user.image_url})
         } else {
           next({ status: 400, msg: {msg:'email/password wrong'}})
         }

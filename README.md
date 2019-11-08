@@ -147,9 +147,67 @@ Build with express, mongoose, vuejs, bostrap
 
 <span style='color:red'>Token</span>
 
+### Body :
+
+```java
+{
+	"image": File
+}
+```
+
+
+
 ### Response :
 
 ```java
-
+{
+  "Following": Array of ObjectId,
+  "Followers": Array of ObjectId,
+  "_id": ObjectId,
+  "username": String,
+  "password": String,
+  "email": String,
+  "profile_img": String,
+  "__v": 0
+  }
 ```
 
+
+
+## <span style='color:green'>PATCH</span> /users/change
+
+​	Update image
+
+### Authentication
+
+<span style='color:red'>Token</span>
+
+### Body :
+
+```java
+{
+  "oldPassword": String,
+  "newPassword": String
+}
+```
+
+
+
+### Response :
+
+```java
+{
+  "Following": Array of ObjectId,
+  "Followers": Array of ObjectId,
+  "_id": ObjectId,
+  "username": String,
+  "password": String,
+  "email": String,
+  "profile_img": String,
+  "__v": 0
+  }
+```
+
+
+
+### 
