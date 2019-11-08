@@ -2,6 +2,7 @@ const User = require('../models/user')
 const { comparePassword, hashPassword } = require('../helpers/hash');
 const { signToken } = require('../helpers/jwt');
 const mongoose = require('mongoose');
+const gcsDelete = require('../helpers/gcsDelete')
 
 module.exports = {
   findUser (req, res, next) {
@@ -83,7 +84,11 @@ module.exports = {
   updateImage (req, res, next) {
     let image_url = req.file.cloudStoragePublicUrl
     let _id = req.loggedUser.id;
-    User.findByIdAndUpdate(_id, {profile_img: image_url}, {new: true})
+    User.findById(_id)
+      .then(user => {
+        gcsDelete(user.profile_img)
+        return User.findByIdAndUpdate(_id, {profile_img: image_url}, {new: true})
+      })
       .then((user) => {
         res.status(200).json({user})
       })

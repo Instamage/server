@@ -25,7 +25,7 @@ Build with express, mongoose, vuejs, bostrap
 
 | Routes               | HTTP   | Headers | Body                      | Description          |
 | -------------------- | ------ | ------- | ------------------------- | -------------------- |
-| /posts               | GET    | none    | none                      | Find all Post        |
+| /posts/all           | GET    | none    | none                      | Find all Post        |
 | /posts               | GET    | token   | none                      | Find User Login Post |
 | /posts               | POST   | token   | File<br />caption: String | Create new post      |
 | /posts/like/{:id}    | PATCH  | token   | none                      | Like or Unlike post  |
@@ -210,4 +210,37 @@ Build with express, mongoose, vuejs, bostrap
 
 
 
-### 
+### <span style='color:green'>GET</span> /posts/all
+
+​	Find All Post
+
+
+
+### Response :
+
+```java
+[
+  {
+    "Likes": Array of ObjectId,
+    "comments": Array,
+    "_id": ObjectId,
+    "userId": {
+      "Following": Array of ObjectId,
+      "Followers": Array of ObjectId,
+      "_id": ObjectId,
+      "username": String,
+      "password": String,
+      "profile_img": String,
+      "__v": 0
+    },
+    "caption": String,
+    "image_url": String,
+    "createdAt": Date,
+    "updatedAt": Date,
+    "__v": 0
+  },
+  {...},
+  {...}
+]
+```
+
