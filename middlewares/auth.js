@@ -14,7 +14,7 @@ function authentication(req, res, next) {
           }
         })
     } else {
-      throw {status: 403, msg: 'Authentication Error'}
+      throw {status: 401, msg: 'Authentication Error'}
     }
   } catch (err) {
     next(err)

@@ -35,6 +35,38 @@ Build with express, mongoose, vuejs, bostrap
 
 
 
+## Error Response :
+
+```java
+[
+  {
+    "status": 400,
+    "msg": [
+      'wrong old password',
+      'email/pasword wrong',
+      'email is required',
+      'username is required',
+      'password is required',
+      'password min 8 char'
+    ]
+	},
+  {
+    "status": 401,
+    "msg": [
+      'You are not Authorized!',
+      'Authentication Error',
+      'Invalid Token'
+    ]
+  },
+  {
+    "status": 500,
+    "msg": 'Internal Server Error'
+  }
+]
+```
+
+
+
 ## <span style='color:green'>GET</span> /users
 
 ​	Find All User
@@ -318,4 +350,92 @@ Build with express, mongoose, vuejs, bostrap
 ```
 
 
+
+## <span style='color:green'>PATCH</span> /posts/like/{:id}
+
+​	Like / Unlike Post
+
+### Authentication
+
+<span style='color:red'>Token</span>
+
+### Response :
+
+```java
+{
+  "msg": String
+}
+```
+
+
+
+## <span style='color:green'>POST</span> /posts/comment/{:id}
+
+​	Comment post
+
+### Authentication
+
+<span style='color:red'>Token</span>
+
+### Body: 
+
+```java
+{
+  "comment": String
+}
+```
+
+
+
+### Response :
+
+```java
+{
+  "Likes": Array of ObjectId,
+  "comments": Array,
+  "_id": ObjectId,
+  "userId": String,
+  "caption": String,
+  "image_url": String,
+  "createdAt": Date,
+  "updatedAt": Date,
+  "__v": 0
+}
+```
+
+
+
+## <span style='color:green'>PATCH</span> /posts/{:id}/update
+
+​	Update comment post
+
+### Authentication
+
+<span style='color:red'>Token</span>
+
+### Response :
+
+```java
+{
+  "msg": String
+}
+```
+
+
+
+## <span style='color:green'>DELETE</span> /posts/{:id}/delete
+
+​	Delete post
+
+### Authentication
+
+<span style='color:red'>Token</span>
+
+### Response :
+
+```java
+{
+  "msg": String
+}
+```
 
