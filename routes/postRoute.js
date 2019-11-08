@@ -11,6 +11,8 @@ router.post('/', multer.single('image'), gcs, PostController.addPost)
 router.patch('/like/:id', PostController.likeUnlikePost)
 router.post('/comment/:id', PostController.postComment)
 
+router.get('/postuser/:id', PostController.findPostUser)
+
 router.use(':id', authorization)
 router.patch('/:id/update', PostController.editCaption)
 router.delete('/:id/delete', PostController.deletePost)

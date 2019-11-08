@@ -9,7 +9,7 @@ class PostController {
       })
       .catch(next)
   }
-
+  
   static myPost(req, res, next) {
     let userId = req.loggedUser.id
     Post.find({userId}).populate('userId')
@@ -91,6 +91,15 @@ class PostController {
         res.status(200).json("Delete post Success!")
       })
       .catch(next);
+  }
+
+  static findPostUser (req, res, next) {
+    let { id } = req.params.id;
+    Post.find({ userId: id })
+      .then(post => {
+        res.status(200).json(post)
+      })
+      .catch(next)
   }
 }
 
