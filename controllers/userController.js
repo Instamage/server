@@ -34,6 +34,8 @@ module.exports = {
         if(user && comparePassword(password, user.password)){
           const payload = {
             id: user._id,
+            username: user.username,
+            email: user.email
           }
           const serverToken = signToken(payload);
           res.status(200).json({msg: 'Success Login', token: serverToken,
