@@ -225,14 +225,14 @@ Build with express, mongoose, vuejs, bostrap
     "comments": Array,
     "_id": ObjectId,
     "userId": {
-      "Following": Array of ObjectId,
-      "Followers": Array of ObjectId,
-      "_id": ObjectId,
-      "username": String,
-      "password": String,
-      "profile_img": String,
-      "__v": 0
-    },
+        "Following": Array of ObjectId,
+        "Followers": Array of ObjectId,
+        "_id": ObjectId,
+        "username": String,
+        "password": String,
+        "profile_img": String,
+        "__v": 0
+      },
     "caption": String,
     "image_url": String,
     "createdAt": Date,
@@ -243,4 +243,79 @@ Build with express, mongoose, vuejs, bostrap
   {...}
 ]
 ```
+
+
+
+## <span style='color:green'>GET</span> /posts
+
+​	Get Login Post
+
+### Authentication
+
+<span style='color:red'>Token</span>
+
+### Response :
+
+```java
+{
+    "Likes": Array of ObjectId,
+    "comments": Array,
+    "_id": ObjectId,
+    "userId": {
+        "Following": Array of ObjectId,
+        "Followers": Array of ObjectId,
+        "_id": ObjectId,
+        "username": String,
+        "password": String,
+        "profile_img": String,
+        "__v": 0
+    	},
+    "caption": String,
+    "image_url": String,
+    "createdAt": Date,
+    "updatedAt": Date,
+    "__v": 0
+  }
+```
+
+
+
+
+
+## <span style='color:green'>POST</span> /posts
+
+​	Create new Post 		
+
+### Authentication
+
+<span style='color:red'>Token</span>
+
+### Body :
+
+```java
+{
+  "image": File,
+  "caption": String
+}
+```
+
+
+
+### Response :
+
+```java
+{
+    "Likes": Array of ObjectId,
+    "comments": Array,
+    "_id": ObjectId,
+    "userId": ObjectId,
+    "caption": String,
+    "image_url": String,
+    "createdAt": Date,
+    "updatedAt": Date,
+    "__v": 0
+  }
+```
+
+
 

@@ -34,12 +34,10 @@ module.exports = {
         if(user && comparePassword(password, user.password)){
           const payload = {
             id: user._id,
-            username: user.username,
-            email: user.email
           }
           const serverToken = signToken(payload);
           res.status(200).json({msg: 'Success Login', token: serverToken,
-          image_url: user.image_url})
+          image_url: user.profile_img, username: user.username})
         } else {
           next({ status: 400, msg: {msg:'email/password wrong'}})
         }
