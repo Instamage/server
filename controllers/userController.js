@@ -48,9 +48,9 @@ module.exports = {
   },
   followingStatusFalse (req, res, next) {
     const _id = req.params.id;
+    let pass = true
     User.findById({ _id })
       .then(user => {
-        let pass = true;
         for(let i=0; i<user.Followers.length; i++) {
           if(user.Followers[i] == req.loggedUser.id) {
             pass = false
@@ -66,10 +66,10 @@ module.exports = {
       .then((a) => {
         let _id = new mongoose.Types.ObjectId(req.loggedUser.id);
         let targetId = new mongoose.Types.ObjectId(req.params.id);
-        if(a.Followers.length == 0) {
-          return User.findByIdAndUpdate({ _id }, {$push: {Following: targetId}})
-        } else {
+        if(!pass) {
           return User.findByIdAndUpdate({ _id }, {$pull: {Following: targetId}})
+        } else {
+          return User.findByIdAndUpdate({ _id }, {$push: {Following: targetId}})
         }
       })
       .then((a) => {
