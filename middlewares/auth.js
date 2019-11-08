@@ -1,12 +1,21 @@
 const { decodeToken } = require('../helpers/jwt')
+const User = require('../models/user');
 const Post = require('../models/posting')
 
 function authentication(req, res, next) {
   try {
-    let token = req.headers.token
-    let decode = decodeToken(token)
-    req.loggedUser = decode
-    next()
+    if(req.headers.token) {
+      const decode = decodeToken(req.headers.token);
+      User.findById(decode.id)
+        .then(user => {
+          if(user) {
+            req.loggedUser = decode;
+            next()
+          }
+        })
+    } else {
+      throw {status: 403, msg: 'Authentication Error'}
+    }
   } catch (err) {
     next(err)
   }

@@ -4,6 +4,13 @@ const { signToken } = require('../helpers/jwt');
 const mongoose = require('mongoose');
 
 module.exports = {
+  findUser (req, res, next) {
+    User.find()
+      .then(user => {
+        res.status(200).json(user)
+      })
+      .catch(next)
+  },
   signup (req, res, next) {
     const { username, password, email } = req.body;
     User.create({ username, password, email })
@@ -11,7 +18,8 @@ module.exports = {
         const payload = {
           id: user._id,
           username: user.username,
-          email: user.email
+          email: user.email,
+          image_url: user.image_url
         }
         const serverToken = signToken(payload);
         res.status(200).json({username: user.username, token: serverToken})
@@ -26,7 +34,8 @@ module.exports = {
           const payload = {
             id: user._id,
             username: user.username,
-            email: user.email
+            email: user.email,
+            image_url: user.image_url
           }
           const serverToken = signToken(payload);
           res.status(200).json({msg: 'Success Login', token: serverToken})
