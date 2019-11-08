@@ -94,7 +94,7 @@ class PostController {
   }
 
   static findPostUser (req, res, next) {
-    let { id } = req.params.id;
+    let id  = req.params.id;
     Post.find({ userId: id })
       .then(post => {
         res.status(200).json(post)
